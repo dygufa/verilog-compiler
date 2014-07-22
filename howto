@@ -1,0 +1,6 @@
+1) Usuário passa arquivo para o compilador usando a seguinte sintaxe:
+	python3 compiler.py [FILE]
+
+2) O compilador abre o arquivo e verifica a sintaxe dele utilizando uma função a ser criada que irá ler o arquivo linha por linha. Caso o arquivo seja válido, a função de verificação deve retornar os parametros de portas e etc, caso não, a função deve retornar erro e informar a linha na qual há falha de sintaxe.
+
+3) Após verificação da sintaxe e extração das entras, devemos passar os dados pelo "compilador de fato", ele deverá gerar um "vetor" de saída que representa o sinal no terminal "out".
