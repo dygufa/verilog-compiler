@@ -1,7 +1,7 @@
 import re
 
 def init(file_object):
-	check_syntax(file_object)
+	return check_syntax(file_object)
 
 
 def check_syntax(file_object):
@@ -24,17 +24,30 @@ def check_syntax(file_object):
 		if (module_defined):
 			res_xput = is_xput(line)
 			if (res_xput['status']):
-				print('e exput')
+				if res_xput['type'] == 'input':
+					if not 'inputs' in extracted_data:
+						extracted_data['inputs'] = []
+					extracted_data['inputs'] = extracted_data['inputs'] + res_xput['args']
+				elif res_xput['type'] == 'output':
+					if not 'outputs' in extracted_data:
+						extracted_data['outputs'] = []
+					extracted_data['outputs'] = extracted_data['outputs'] + res_xput['args']
 			else:
 				res_port = is_port(line) 
 				if (res_port['status']):
-					print('e port')
+					if not 'ports' in extracted_data:
+						extracted_data['ports'] = []
+					current_port_data = [[res_port['name'], res_port['type'], res_port['delay'], res_port['output'], res_port['inputs'][0], res_port['inputs'][1]]]
+					extracted_data['ports'] = extracted_data['ports'] + current_port_data
+					
 		else:
 			if (is_module(line)):
 				module_defined = True
 			else:
 				print('Erro, o código verilog não foi iniciado com module')
 				break
+
+	return extracted_data
 
 
 def sanitize_line(line):
@@ -79,6 +92,8 @@ def is_port(line):
 		matches = match.groupdict()
 		module_args = matches['xport_args'].replace(' ', '')
 		params = module_args.split(',')
-		return {'status': True, 'type': matches['xport_type'] , 'args': params, 'name': matches['xport_name']}
+		output = params[0]
+		inputs = params[1:]
+		return {'status': True, 'type': matches['xport_type'] , 'delay': 0, 'output': output, 'inputs': inputs, 'name': matches['xport_name']}
 	else: 
 		return {'status': False}
