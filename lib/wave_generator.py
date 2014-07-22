@@ -44,13 +44,8 @@ def search_port_by_id(port_id):
 def get_wave_signal_by_port_signal_id():
 	return 1
 
-
 def choose_port(type, signal_1, signal_2):
-	if type == 'and':	
-		return pand(signal_1, signal_2)
-	elif type == 'nand':
-		return pnand(signal_1, signal_2)
-
+	locals()['type'](signal_1, signal_2)
 
 def search_port_by_output(output):
 	for port in port_data:
