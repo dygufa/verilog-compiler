@@ -19,55 +19,68 @@ def pxnor(s1, s2):
 def pnot(s1):
 	return not s1
 
-inputs = []
-outputs = []
-port_data = []
+def init(extracted_data, wave_in_data):
+	global inputs
+	global outputs
+	global port_data
+	global wave_in
 
-def init(extracted_data, wave_in):
-	outputs = extracted_data[0]
-	inputs = extracted_data[1] 
-	port_data = extracted_data[2]
+	outputs = extracted_data['outputs']
+	inputs = extracted_data['inputs']
+	port_data = extracted_data['ports']
+	wave_in = wave_in_data
 
-	for output in outputs
-		output_port = search_port_by_id(output);
-		for t in range(len(wave_in)):
-			signal = process_signal(t, output_port)
+	timeline_length = len(wave_in[0][1])
+	final_signal = [0]*timeline_length
+
+	for output in outputs:
+		output_port = search_port_by_output(output)
+		for t in range(timeline_length):
+			final_signal[t] = process_signal(t, output_port['id'])
 		
-
+	return final_signal
 
 def search_port_by_id(port_id):
 	for port in port_data:
-		if port == port_id
+		if port['id'] == port_id:			
 			return port
+
 	return False
 
-def get_wave_signal_by_port_signal_id():
-	return 1
+def get_wave_signal_by_port_signal_id(t, input_id):
+	for wavein_el in wave_in:
+		if wavein_el[0] == input_id:
+			return wavein_el[1][t]
 
 def choose_port(type, signal_1, signal_2):
-	locals()['type'](signal_1, signal_2)
+	return globals()['p' + type](signal_1, signal_2)
 
 def search_port_by_output(output):
 	for port in port_data:
-		if port[3] == output:
+		if port['output'] == output:
 			return port
 	return False
 
 
 def process_signal(t, port_id):
 	current_port_data = search_port_by_id(port_id)
-
-	if current_port_data[4] in inputs:
-		return get_wave_signal_by_port_signal_id(current_port_data[4])
-	else:
-		signal_1 = process_signal(t, search_port_by_output(current_port_data[4]))
+	input_1 = current_port_data['inputs'][0]
 	
-	if current_port_data[5] in inputs:
-		return get_wave_signal_by_port_signal_id(current_port_data[5])
-	else:	
-		signal_2 = process_signal(t, search_port_by_output(current_port_data[5]))
+	if input_1 in inputs:
+		signal_1 = get_wave_signal_by_port_signal_id(t, input_1)
+	else:
+		searched_port_1 = search_port_by_output(input_1)
+		signal_1 = process_signal(t, searched_port_1['id'])
+	
+	input_2 = current_port_data['inputs'][1]
 
-	return choose_port(current_port_data[1], signal_1, signal_2)
+	if input_2 in inputs:
+		signal_2 = get_wave_signal_by_port_signal_id(t, input_2)
+	else:	
+		searched_port_2 = search_port_by_output(input_2)
+		signal_2 = process_signal(t, searched_port_2['id'])
+
+	return choose_port(current_port_data['type'], signal_1, signal_2)
 
 '''
 tipos:

@@ -6,3 +6,4 @@ Corrigir:
 
 1) Corrigir lógica de verificação de comentários de multiplas linhas
 2) Aceitar qualquer tipo de caractere no nome do modulo
+3) Module funcionando sem ;
