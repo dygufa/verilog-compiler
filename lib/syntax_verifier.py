@@ -23,7 +23,7 @@ def check_syntax(file_object):
 
 		if (module_defined):
 			res_xput = is_xput(line)
-			if (res_xput['status']):
+			if res_xput['status']:
 				if res_xput['type'] == 'input':
 					if not 'inputs' in extracted_data:
 						extracted_data['inputs'] = []
@@ -34,11 +34,19 @@ def check_syntax(file_object):
 					extracted_data['outputs'] = extracted_data['outputs'] + res_xput['args']
 			else:
 				res_port = is_port(line) 
-				if (res_port['status']):
+				if res_port['status']:
 					if not 'ports' in extracted_data:
 						extracted_data['ports'] = []
 					current_port_data = [[res_port['name'], res_port['type'], res_port['delay'], res_port['output'], res_port['inputs'][0], res_port['inputs'][1]]]
 					extracted_data['ports'] = extracted_data['ports'] + current_port_data
+				else:
+					res_datatype = is_datatype(line)
+					if res_datatype['status']:
+						if res_datatype['type'] == 'wire':
+							if not 'wires' in extracted_data:
+								extracted_data['wires'] = []
+							extracted_data['wires'] = extracted_data['wires'] + res_datatype['args']
+
 					
 		else:
 			if (is_module(line)):
@@ -58,7 +66,7 @@ def is_module(line):
 	match = re.match("^module\s(\w+)(\s?)\(((\s?)((\w+)\,)?)+(\w+)\)$", line)
 	if match:
 		match = re.match("^module\s(?P<module_name>\w+)(\s?)\((?P<module_args>.*)\)$", line)
-		matches = match.groupdict()
+		matches = match.groupdict() 
 		module_args = matches['module_args'].replace(' ', '')
 		params = module_args.split(',')
 		return {'status': True, 'args': params}
@@ -78,10 +86,17 @@ def is_xput(line):
 	else: 
 		return {'status': False}
 
-
 def is_datatype(line):
 	line = sanitize_line(line)
-	match = re.match("^(wire|integer|reg)\s((\s?)((?P<datatype_params>\w+)\,)?)+(?P<datatype_last_param>\w+)$", line)
+	match = re.match("^(wire)\s((\s?)((\w+)\,)?)+(\w+)\;$", line)
+	if match:
+		match = re.match("^(?P<datatype_type>wire|integer|reg)\s(?P<datatype_args>.*)(\s?)\;$", line)
+		matches = match.groupdict()
+		datatype_args = matches['datatype_args'].replace(' ', '')
+		params = datatype_args.split(',')
+		return {'status': True, 'type': matches['datatype_type'] , 'args': params}
+	else: 
+		return {'status': False}
 
 
 def is_port(line):
