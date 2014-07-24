@@ -17,11 +17,11 @@ def check_syntax(file_object):
 	for line in file_lines:
 		k += 1
 		# Ignora todos os comentários
-		if (line[:1] == '//' or line[:1] == '/*' or line[:1] == '*/' or is_comment or line.replace(' ', '') == '\n'):
+		if (line[:2] == '//' or line[:2] == '/*' or line[:2] == '*/' or is_comment or line.replace(' ', '') == '\n'):
 			continue
-		if (line[:1] == '/*'):
+		if (line[:2] == '/*'):
 			is_comment = True
-		if (line[:1] == '*/'):
+		if (line[:2] == '*/'):
 			is_comment = False
 
 		if (module_defined):
