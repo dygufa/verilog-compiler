@@ -142,8 +142,10 @@ def is_port(line):
 	if match:
 		match = re.match("^(?P<xport_type>and|or|buf|not|xor)\s(?P<xport_delay>\#([1-9]+)(\s))?(?P<xport_name>\w+)\((?P<xport_args>.*)\)(\s?)\;$", line)
 		matches = match.groupdict()
-		module_args = matches['xport_args'].replace(' ', '')
-		params = module_args.split(',')
+		port_args = matches['xport_args'].replace(' ', '')
+		params = port_args.split(',')
+		if matches['xport_type'] != 'not' and len(params) <= 2:
+			return {'status': False}
 		output = params[0]
 		inputs = params[1:]
 		if matches['xport_delay'] == None:

@@ -122,6 +122,11 @@ def process_signal(t, port_id):
 	current_port_data = search_port_by_id(port_id)
 	t = t - current_port_data['delay']
 
+	if (current_port_data['type']) == 'not':
+		input_1 = current_port_data['inputs'][0]
+		searched_port_1 = search_port_by_output(input_1)
+		return pnot(process_signal(t, searched_port_1['id']))
+
 	input_1 = current_port_data['inputs'][0]
 
 	if input_1 in inputs:
