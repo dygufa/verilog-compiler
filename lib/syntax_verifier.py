@@ -100,9 +100,9 @@ def sanitize_line(line):
 
 def is_module(line):
 	line = sanitize_line(line)
-	match = re.match("^module\s(\w+)(\s?)\(((\s?)((\w+)\,)?)+(\w+)\)\;$", line)
+	match = re.match("(\s*)module\s(\w+)(\s?)\(((\s?)((\w+)\,)?)+(\w+)\)\;$", line)
 	if match:
-		match = re.match("^module\s(?P<module_name>\w+)(\s?)\((?P<module_args>.*)\)\;$", line)
+		match = re.match("(\s*)module\s(?P<module_name>\w+)(\s?)\((?P<module_args>.*)\)\;$", line)
 		matches = match.groupdict() 
 		module_args = matches['module_args'].replace(' ', '')
 		params = module_args.split(',')
@@ -113,9 +113,9 @@ def is_module(line):
 
 def is_xput(line):
 	line = sanitize_line(line)
-	match = re.match("^(input|output)\s((\s?)((\w+)\,)?)+(\w+)\;$", line)
+	match = re.match("(\s*)(input|output)\s((\s?)((\w+)\,)?)+(\w+)\;$", line)
 	if match:
-		match = re.match("^(?P<xput_type>input|output)\s(?P<xput_args>.*)(\s?)\;$", line)
+		match = re.match("(\s*)(?P<xput_type>input|output)\s(?P<xput_args>.*)(\s?)\;$", line)
 		matches = match.groupdict()
 		module_args = matches['xput_args'].replace(' ', '')
 		params = module_args.split(',')
@@ -125,9 +125,9 @@ def is_xput(line):
 
 def is_datatype(line):
 	line = sanitize_line(line)
-	match = re.match("^(wire)\s((\s?)((\w+)\,)?)+(\w+)\;$", line)
+	match = re.match("(\s*)(wire)\s((\s?)((\w+)\,)?)+(\w+)\;$", line)
 	if match:
-		match = re.match("^(?P<datatype_type>wire|integer|reg)\s(?P<datatype_args>.*)(\s?)\;$", line)
+		match = re.match("(\s*)(?P<datatype_type>wire|integer|reg)\s(?P<datatype_args>.*)(\s?)\;$", line)
 		matches = match.groupdict()
 		datatype_args = matches['datatype_args'].replace(' ', '')
 		params = datatype_args.split(',')
@@ -138,9 +138,9 @@ def is_datatype(line):
 
 def is_port(line):
 	line = sanitize_line(line)
-	match = re.match("^(and|or|buf|not|xor)\s(\#([1-9]+)\s)?(\w+)(\s?)\(((\s?)((\w+)\,)?)+(\w+)\)\;$", line)
+	match = re.match("(\s*)(and|or|buf|not|xor)\s(\#([1-9]+)\s)?(\w+)(\s?)\(((\s?)((\w+)\,)?)+(\w+)\)\;$", line)
 	if match:
-		match = re.match("^(?P<xport_type>and|or|buf|not|xor)\s(?P<xport_delay>\#([1-9]+)(\s))?(?P<xport_name>\w+)\((?P<xport_args>.*)\)(\s?)\;$", line)
+		match = re.match("(\s*)(?P<xport_type>and|or|buf|not|xor)\s(?P<xport_delay>\#([1-9]+)(\s))?(?P<xport_name>\w+)\((?P<xport_args>.*)\)(\s?)\;$", line)
 		matches = match.groupdict()
 		port_args = matches['xport_args'].replace(' ', '')
 		params = port_args.split(',')
