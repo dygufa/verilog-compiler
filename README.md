@@ -1,4 +1,4 @@
 verilog-compiler
 ================
 
-Work of the university dscipline "LAB 1"
+Work of the university discipline "LAB 1"
