@@ -3,7 +3,7 @@ Verilog Output Weaver Generator
 
 Verilog Output Weaver Generator allows you to generate the output wave from a digital circuit using a Verilog¹ file and the input states described on a "wave in" file. If you didn't get it: check the example below! :) 
 
-¹ *In case you don't know: Verilog is a hardware description language that allow us to represent digital circuits*
+¹ *In case you don't know: Verilog is a hardware description language that allow us to represent digital circuits.*
 
 Try it:
 ```
