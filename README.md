@@ -1,7 +1,9 @@
-Verilog Compiler
+Verilog Output Weaver Generator
 ================
 
-From a Verilog file (in case you don't know: Verilog it's a hardware description language that allow us to represent circuits) this script verifies its syntax and using the input states described on the "wave in" file it generates the respective output state. If you didn't get it: check the example below! :) 
+Verilog Output Weaver Generator allows you to generate the output wave from a digital circuit using a Verilog¹ file and the input states described on a "wave in" file. If you didn't get it: check the example below! :) 
+
+¹ *In case you don't know: Verilog is a hardware description language that allow us to represent digital circuits*
 
 Try it:
 ```
