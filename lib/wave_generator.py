@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 def pand(s1, s2):
 	if s1 == 2:
 		if s2 == 0:
