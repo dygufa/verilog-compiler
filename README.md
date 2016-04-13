@@ -15,6 +15,7 @@ If you have no clue about what I'm talking about, please let me give you an exam
 #### 1. First we need a circuit (and a Verilog file that describe it)!
 
 Let's use this one:
+
 ![Circuit](circuit.png)
 
 and this is the respective Verilog description file (let's name it verilog.v):
@@ -33,6 +34,7 @@ endmodule
 #### 2. Now we need to figure out some inputs for the circuit above:
 
 Input waves:
+
 ![Wave in](wavein.png)
 
 We can represent the waves above in a python file (let's name it wave_in.py):
