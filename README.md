@@ -12,12 +12,12 @@ python3 compiler.py [VERILOG FILE] [WAVE IN FILE]
 
 If you have no clue about what I'm talking let me give you an example:
 
-1. First we need a circuit (and a Verilog file that describe it)!
+#### 1. First we need a circuit (and a Verilog file that describe it)!
 
-Circuit:
+This is the circuit:
 ![Circuit](circuit.png)
 
-Respective Verilog description of the circuit (let's name it verilog.v):
+and this is the respective Verilog description file (let's name it verilog.v):
 ```
 module Exemplo(I1, I2, O1, O2);
 
@@ -30,12 +30,12 @@ or OR(O2, I1, I2);
 endmodule
 ```
 
-2. We need the input waves:
+#### 2. Now we need to figure out some inputs for the circuit above:
 
 Input waves:
 ![Wave in](wavein.png)
 
-Respective python file to represent them (let's name it wave_in.py):
+We can represent the waves above in a python file (let's name it wave_in.py):
 ```
 wave_in_base = [
 	['I1', [1, 0, 1]],
@@ -43,7 +43,7 @@ wave_in_base = [
 ]
 ```
 
-3. It's done! We just need to run this example:
+#### 3. It's done! We just need to run it:
 
 ```
 python3 compiler.py verilog.v wave_in.py
