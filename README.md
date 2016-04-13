@@ -1,20 +1,20 @@
 Verilog Compiler
 ================
 
-Using a Verilog file (in case you don't know: it'a a hardware description language that allow us to represents circuits) this script verifies its syntax and using the input states described on the "wave in" file it generates the respective output state. 
+From a Verilog file (in case you don't know: Verilog it's a hardware description language that allow us to represent circuits) this script verifies its syntax and using the input states described on the "wave in" file it generates the respective output state. If you didn't get it: check the example below! :) 
 
-You can run using:
+Try it:
 ```
 python3 compiler.py [VERILOG FILE] [WAVE IN FILE]
 ```
 
 ## Example
 
-If you have no clue about what I'm talking let me give you an example:
+If you have no clue about what I'm talking about, please let me give you an example:
 
 #### 1. First we need a circuit (and a Verilog file that describe it)!
 
-This is the circuit:
+Let's use this one:
 ![Circuit](circuit.png)
 
 and this is the respective Verilog description file (let's name it verilog.v):
