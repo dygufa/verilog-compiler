@@ -57,3 +57,6 @@ and we will get:
 ```
 {'O2': [1, 0, 1], 'O1': [1, 0, 0]}
 ```
+that is the same as:
+
+![Wave out](waveout.png)
